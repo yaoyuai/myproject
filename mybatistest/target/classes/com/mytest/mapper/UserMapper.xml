@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mytest.mapper.UserMapper">
+    <select id="readAllUserByRole" resultMap="userRole">
+        select a.user_id,a.user_name,c.role_id,c.role_name
+        from `user` a left join `user_role` b on a.user_id=b.user_id left join role c on b.role_id=c.role_id
+    </select>
+
+    <resultMap id="userRole" type="User">
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <collection property="roleList" ofType="Role">
+            <result property="roleId" column="role_id"></result>
+            <result property="roleName" column="role_name"></result>
+        </collection>
+    </resultMap>
+    
+    <insert id="addUser" parameterType="UserQo">
+        insert into `user` values(null,#{userName})
+    </insert>
+    
+    <delete id="deleteUser">
+        delete from `user` where user_id=#{userId}
+    </delete>
+
+    <update id="modifyUserByUserId" parameterType="UserQo">
+        update `user` set user_name=#{userName} where user_id=#{userId}
+    </update>
+
+</mapper>
