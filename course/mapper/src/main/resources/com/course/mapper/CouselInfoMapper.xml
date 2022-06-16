@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.course.mapper.CouselInfoMapper">
+
+    <select id="selectStudentHasSel" resultType="CouselInfo">
+        select * from cousel_info where student_id=#{studentId}
+    </select>
+
+    <select id="selectStudentHasCourse" parameterType="CouselInfoQo" resultType="CouselInfo">
+        select * from cousel_info where student_id=#{studentId} and course_id=#{courseId}
+    </select>
+
+    <insert id="addCousel" parameterType="CouselInfoQo">
+        insert into cousel_info values(null,#{studentId},#{courseId},null,now(),null)
+    </insert>
+
+    <delete id="deleteCousel" parameterType="CouselInfoQo">
+        delete from cousel_info where course_id=#{courseId} and student_id=#{studentId}
+    </delete>
+
+    <select id="showCourseByCousel" parameterType="CouselInfoQo" resultType="CourseInfoVo">
+        select a.*,b.*
+        from cousel_info a left join course_info b on a.course_id=b.course_id
+        where a.student_id=#{studentId}
+    </select>
+
+
+    <select id="selectCouselNum" parameterType="CouselInfoQo" resultType="int">
+        select count(*)
+        from cousel_info where course_id=#{courseId}
+    </select>
+
+
+
+
+</mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.course.mapper.ZexamresInfoMapper">
+
+
+    <select id="selectZexamHasResult" parameterType="ZexamresInfoQo" resultType="ZexamresInfo">
+        select * from zexamres_info where student_id=#{studentId} and exam_id=#{examId}
+    </select>
+
+    <insert id="addZexamResInfo" parameterType="ZexamresInfoQo">
+        insert into zexamres_info values(null,#{examId},#{studentId},null,now(),null,#{zexamresScore})
+    </insert>
+
+    <select id="selectZhuGuanScore" resultType="double" parameterType="ZexamresInfoQo">
+        select zexamres_score from zexamres_info where exam_id=#{examId} and student_id=#{studentId}
+    </select>
+
+
+
+
+
+
+</mapper>

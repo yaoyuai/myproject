@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.course.mapper.ChooseInfoMapper">
+
+    <insert id="addChoose" parameterType="ChooseInfoQo">
+        insert into choose_info values(null,#{chooseContent},#{exerId})
+    </insert>
+
+    <select id="showAllChooseInfoByExerId" resultType="ChooseInfoVo">
+        select * from choose_info where exer_id=#{exerId}
+    </select>
+
+    <select id="selectMaxId" resultType="int">
+        select max(choose_id) from choose_info
+    </select>
+
+</mapper>

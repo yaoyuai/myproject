@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    password: 1234
+    username: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/course
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.course.pojo, com.course.qo, com.course.vo

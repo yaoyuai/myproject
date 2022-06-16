@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.course.mapper.CourseInfoMapper">
+
+
+    <select id="showAllCourseByCondition" resultType="CourseInfoVo" parameterType="CourseInfoQo">
+        select a.*,b.*
+        from course_info a left join teacher_info b on a.teacher_id=b.teacher_id
+        where a.course_des like concat('%',#{courseDes},'%')
+        limit #{nowPage},#{divideNum}
+    </select>
+
+
+    <select id="showAllCourseByConditionCount" resultType="int" parameterType="CourseInfoQo">
+        select count(*)
+        from course_info a left join teacher_info b on a.teacher_id=b.teacher_id
+        where a.course_des like concat('%',#{courseDes},'%')
+    </select>
+
+
+    <select id="selectHotCourse" resultType="CourseInfoVo">
+        select a.*,b.*
+        from course_info a left join teacher_info b on a.teacher_id=b.teacher_id
+        order by a.course_select desc limit 0,8
+    </select>
+
+
+    <select id="selectTeacherHasCourse" resultType="CourseInfo">
+        select * from couse_info where teacher_id=#{teacherId}
+    </select>
+
+
+    <select id="adminShowAllCourse" resultType="CourseInfoVo" parameterType="CourseInfoQo">
+        select a.*,b.*,c.*
+        from course_info a left join state_info b on a.state_id=b.state_id
+        left join teacher_info c on a.teacher_id=c.teacher_id
+        <where>
+            <include refid="condition"></include>
+        </where>
+        limit #{nowPage},#{divideNum}
+    </select>
+
+
+    <select id="adminShowAllCourseCount" resultType="int" parameterType="CourseInfoQo">
+        select count(*)
+        from course_info a left join state_info b on a.state_id=b.state_id
+        left join teacher_info c on a.teacher_id=c.teacher_id
+        <where>
+            <include refid="condition"></include>
+        </where>
+    </select>
+
+    <update id="adminAuditCourse" >
+        update course_info set state_id=5 where course_id=#{courseId}
+    </update>
+
+
+    <select id="teacherShowAllCourse" parameterType="CourseInfoQo" resultType="CourseInfoVo">
+        select a.*,b.*
+        from course_info a left join state_info b on a.state_id=b.state_id
+        <where>
+            and teacher_id=#{teacherId}
+            <include refid="condition2"></include>
+        </where>
+        order by a.course_ctime desc
+        limit #{nowPage},#{divideNum}
+    </select>
+
+
+
+    <select id="teacherShowAllCourseCount" parameterType="CourseInfoQo" resultType="int">
+        select count(*)
+        from course_info a left join state_info b on a.state_id=b.state_id
+        <where>
+            and teacher_id=#{teacherId}
+            <include refid="condition2"></include>
+        </where>
+    </select>
+
+
+    <update id="teacherUpdateCourse" parameterType="CourseInfoQo">
+        update course_info set course_img=#{courseImg},course_name=#{courseName},course_des=#{courseDes}
+        where course_id=#{courseId}
+    </update>
+
+    <update id="teacherUpdateCourseState" parameterType="CourseInfoQo">
+        update course_info set state_id=#{stateId} where course_id=#{courseId}
+    </update>
+
+    <insert id="teacherUploadCourse" parameterType="CourseInfoQo">
+        insert into course_info values(
+            null,#{courseName},#{teacherId},#{courseDes},4,now(),null,0,#{courseImg}
+        )
+    </insert>
+
+    <select id="selectCourseMaxId" resultType="int">
+        select max(course_id) from course_info
+    </select>
+
+    <update id="adminAuditNoCourse">
+          update course_info set state_id=8 where course_id=#{courseId}
+    </update>
+
+
+    <select id="showAllCourseByExamAndTrain" resultType="CourseInfoVo">
+        select * from course_info where teacher_id=#{teacherId}
+    </select>
+
+
+    <delete id="deleteCourse" parameterType="CourseInfoQo">
+        delete from course_info where course_id=#{courseId}
+    </delete>
+
+    <select id="selectTeacherHasCourseTwo" parameterType="CourseInfoQo" resultType="int">
+        select count(*) from course_info where course_name=#{courseName} and teacher_id=#{teacherId}
+    </select>
+
+    <update id="updateSelectNum" parameterType="CourseInfoQo">
+        update course_info set course_select=course_select+1 where course_id=#{courseId}
+    </update>
+
+
+
+
+
+
+
+
+    <sql id="condition">
+        <if test="courseName!=null">
+            and a.course_name like concat('%',#{courseName},'%')
+        </if>
+        <if test="teacherName!=null">
+            and c.teacher_name like concat('%',#{teacherName},'%')
+        </if>
+        <if test="stateId!=null">
+            and a.state_id=#{stateId}
+        </if>
+
+    </sql>
+
+    <sql id="condition2">
+        <if test="courseName!=null">
+            and a.course_name like concat('%',#{courseName},'%')
+        </if>
+        <if test="stateId!=null">
+            and a.state_id=#{stateId}
+        </if>
+    </sql>
+
+
+
+</mapper>

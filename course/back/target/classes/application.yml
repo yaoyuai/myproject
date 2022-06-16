@@ -1,0 +1,26 @@
+server:
+  port: 9092
+debug: true
+
+
+
+spring:
+  servlet:
+    multipart:
+      enabled: true #是否启用http上传处理
+      max-request-size: 500MB #最大请求文件的大小
+      max-file-size: 500MB #设置单个文件最大长度
+      file-size-threshold: 20MB #当文件达到多少时进行磁盘写入
+  datasource:
+    password: 1234
+    username: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/course
+  web:
+    resources:
+      static-locations: classpath:static/,file:G:\desk\ideaProject\course\back\src\main\resources\static\upload
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.log4j.Log4jImpl
+  type-aliases-package: com.course.pojo, com.course.qo, com.course.vo

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.course.mapper.StudentInfoMapper">
+
+
+    <select id="judgeLogin" resultType="StudentInfo" parameterType="StudentInfoQo">
+        select * from student_info where student_name=#{studentName} and student_pwd=#{studentPwd}
+    </select>
+
+    <insert id="addStudent" parameterType="StudentInfoQo">
+        insert into student_info values(
+            null,#{studentName},#{studentNick},#{studentPwd},0,
+            1,#{studentSex},now(),null)
+    </insert>
+
+
+    <select id="judgeRegistHasName" resultType="StudentInfo">
+        select * from student_info where student_name=#{studentName}
+    </select>
+
+
+
+    <insert id="adminAddStudent" parameterType="StudentInfoQo">
+        insert into student_info values(
+            null,#{studentName},#{studentNick},'123456',0,
+            1,#{studentSex},now(),null)
+    </insert>
+
+
+    <update id="adminUpdateStudent" parameterType="StudentInfoQo">
+        update student_info set student_nick=#{studentNick},student_sex=#{studentSex} where student_id=#{studentId}
+    </update>
+
+
+    <update id="adminLogOutStudent" parameterType="StudentInfoQo">
+        update student_info set state_id=3 where student_id=#{studentId}
+    </update>
+
+
+    <select id="showAllStudent" parameterType="StudentInfoQo" resultType="StudentInfoVo">
+
+        select a.*,b.*
+        from  student_info a left join state_info b on a.state_id=b.state_id
+        left join parent_info c on a.parent_id=c.parent_id
+        <where>
+            <include refid="condition"></include>
+        </where>
+
+        limit #{nowPage},#{divideNum}
+    </select>
+
+    <select id="showAllStudentCount" parameterType="StudentInfoQo" resultType="int">
+        select count(*)
+        from  student_info a left join state_info b on a.state_id=b.state_id
+        left join parent_info c on a.parent_id=c.parent_id
+        <where>
+            <include refid="condition"></include>
+        </where>
+    </select>
+
+    <select id="selectParentHasStudent" resultType="StudentInfo">
+
+        select * from student_info where parent_id=#{parentId}
+
+    </select>
+
+
+    <update id="resetPwd">
+        update student_info set student_pwd='123456' where student_id=#{studentId}
+    </update>
+
+
+    <select id="showBan" parameterType="StudentInfoQo" resultType="StudentInfoVo">
+        select *
+        from student_info
+        <where>
+            and parent_id=#{parentId}
+            <include refid="condition1"></include>
+        </where>
+        limit #{nowPage},#{divideNum}
+    </select>
+
+
+    <select id="showBanCount" parameterType="StudentInfoQo" resultType="int">
+        select count(*)
+        from student_info
+        <where>
+            and parent_id=#{parentId}
+            <include refid="condition1"></include>
+        </where>
+    </select>
+
+
+
+    <update id="ban" parameterType="StudentInfoQo">
+        update student_info set parent_id=#{parentId} where student_name=#{studentName}
+    </update>
+
+    <update id="jieBan" parameterType="StudentInfoQo">
+        update student_info set parent_id=0 where student_id=#{studentId}
+    </update>
+
+    <select id="showStudentByParentId" parameterType="StudentInfoQo" resultType="StudentInfoVo">
+        select * from student_info where parent_id=#{parentId}
+    </select>
+
+
+
+
+    <sql id="condition1">
+        <if test="studentName!=null">
+            and student_name like concat('%',#{studentName},'%')
+        </if>
+        <if test="studentSex!=null">
+            and student_sex=#{studentSex}
+        </if>
+    </sql>
+
+
+    <sql id="condition">
+        <if test="studentName!=null">
+            and a.student_name like concat('%',#{studentName},'%')
+        </if>
+        <if test="studentNick!=null">
+            and a.student_nick like concat('%',#{studentNick},'%')
+        </if>
+        <if test="stateId!=null">
+            and a.state_id=#{stateId}
+        </if>
+    </sql>
+
+</mapper>

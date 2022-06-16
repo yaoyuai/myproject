@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.course.mapper.MaterialInfoMapper">
+
+    <insert id="addMaterial" parameterType="MaterialInfoQo">
+        insert into material_info values(null,#{materialUrl},#{courseId},'course',#{teacherId},now(),#{materialName})
+    </insert>
+
+    <select id="showAllMaterialById" parameterType="MaterialInfoQo" resultType="MaterialInfo">
+        select * from material_info where course_id=#{courseId}
+    </select>
+
+    <select id="showAllVideo" parameterType="MaterialInfoQo" resultType="MaterialInfoVo">
+        select a.*,b.*
+        from material_info a left join teacher_info b on a.teacher_id=b.teacher_id
+        where right(a.material_url,3) in ('mp4','wav') and course_id=#{courseId} and a.teacher_id=#{teacherId}
+        limit #{nowPage},#{divideNum}
+    </select>
+
+
+    <select id="showAllVideoCount" parameterType="MaterialInfoQo" resultType="int">
+        select count(*)
+        from material_info a left join teacher_info b on a.teacher_id=b.teacher_id
+        where right(a.material_url,3) in ('mp4','wav') and course_id=#{courseId} and a.teacher_id=#{teacherId}
+    </select>
+
+    <select id="showAllMaterialByCourseId" parameterType="MaterialInfoQo" resultType="MaterialInfoVo">
+        select a.*,b.*
+        from material_info a left join teacher_info b on a.teacher_id=b.teacher_id
+        where course_id=#{courseId}
+        limit #{nowPage},#{divideNum}
+    </select>
+
+
+    <select id="showAllMaterialByCourseIdCount" parameterType="MaterialInfoQo" resultType="int">
+        select count(*)
+         from material_info a left join teacher_info b on a.teacher_id=b.teacher_id
+        where course_id=#{courseId}
+    </select>
+
+
+
+
+</mapper>

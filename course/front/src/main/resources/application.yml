@@ -1,0 +1,20 @@
+server:
+  port: 9091
+debug: true
+
+
+
+spring:
+  datasource:
+    password: 1234
+    username: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/course
+  web:
+    resources:
+      static-locations: classpath:static/,file:G:\desk\ideaProject\course\back\src\main\resources\static\upload
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.log4j.Log4jImpl
+  type-aliases-package: com.course.pojo, com.course.qo, com.course.vo

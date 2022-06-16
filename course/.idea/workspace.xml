@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="69a6d929-3f61-4370-979d-d23301710a3c" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="27sH8eUhJtexFZMcux1MStNDLmr" />
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/mapper/src/main/resources/com/course/mapper" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.course.controller" />
+      <recent name="com.course.service.impl" />
+      <recent name="com.course.service" />
+      <recent name="com.course.vo" />
+      <recent name="com.course.mapper" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\desk\ideaProject\course\mapper\src\main\resources\com\course\mapper" />
+      <recent name="G:\desk\ideaProject\course\back\src\main\resources" />
+      <recent name="G:\desk\ideaProject\course\front\src\main\resources\static" />
+      <recent name="G:\desk\ideaProject\course\mapper\src\main\resources" />
+      <recent name="G:\desk\ideaProject\course\front\src\main\resources" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.BackAppliaction">
+    <configuration name="CourseInfoTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="mapper" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.course.mapper.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.course.mapper" />
+      <option name="MAIN_CLASS_NAME" value="com.course.mapper.CourseInfoTest" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BackAppliaction" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="back" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.course.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.course.BackAppliaction" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FrontApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="front" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.course.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.course.FrontApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.BackAppliaction" />
+        <item itemvalue="Spring Boot.FrontApplication" />
+        <item itemvalue="JUnit.CourseInfoTest.test" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="69a6d929-3f61-4370-979d-d23301710a3c" name="Default Changelist" comment="" />
+      <created>1650101714945</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1650101714945</updated>
+      <workItem from="1650101722036" duration="3388000" />
+      <workItem from="1650118759873" duration="8483000" />
+      <workItem from="1650164700301" duration="2766000" />
+      <workItem from="1650185280991" duration="9807000" />
+      <workItem from="1650272579426" duration="277000" />
+      <workItem from="1650272965343" duration="6464000" />
+      <workItem from="1650293402607" duration="5195000" />
+      <workItem from="1650535529860" duration="2357000" />
+      <workItem from="1650546372487" duration="7165000" />
+      <workItem from="1650603642597" duration="11992000" />
+      <workItem from="1650629845129" duration="10231000" />
+      <workItem from="1650680757299" duration="4385000" />
+      <workItem from="1650685313043" duration="5254000" />
+      <workItem from="1650700601759" duration="83000" />
+      <workItem from="1650769221843" duration="5732000" />
+      <workItem from="1650781698674" duration="2282000" />
+      <workItem from="1650793813788" duration="7325000" />
+      <workItem from="1650812595708" duration="4476000" />
+      <workItem from="1650848385976" duration="6371000" />
+      <workItem from="1650867872212" duration="5716000" />
+      <workItem from="1650944158791" duration="2574000" />
+      <workItem from="1650958478511" duration="663000" />
+      <workItem from="1651054096799" duration="4724000" />
+      <workItem from="1651064524413" duration="9755000" />
+      <workItem from="1651111531950" duration="10387000" />
+      <workItem from="1651135680065" duration="6551000" />
+      <workItem from="1651230808341" duration="7786000" />
+      <workItem from="1651290020196" duration="1629000" />
+      <workItem from="1651499943280" duration="10575000" />
+      <workItem from="1651550384349" duration="13160000" />
+      <workItem from="1651586975947" duration="6918000" />
+      <workItem from="1651632261765" duration="6863000" />
+      <workItem from="1651717448745" duration="3832000" />
+      <workItem from="1651811404931" duration="10416000" />
+      <workItem from="1651850773618" duration="6480000" />
+      <workItem from="1651890853368" duration="4132000" />
+      <workItem from="1651941258356" duration="3592000" />
+      <workItem from="1651976919811" duration="1608000" />
+      <workItem from="1651979386434" duration="10562000" />
+      <workItem from="1651992462043" duration="18797000" />
+      <workItem from="1652021964630" duration="33000" />
+      <workItem from="1652069849990" duration="34000" />
+      <workItem from="1652070612305" duration="185000" />
+      <workItem from="1652070987626" duration="69000" />
+      <workItem from="1652072257319" duration="22000" />
+      <workItem from="1652072297526" duration="12519000" />
+      <workItem from="1652157079519" duration="18243000" />
+      <workItem from="1652279441078" duration="2109000" />
+      <workItem from="1652432673788" duration="490000" />
+      <workItem from="1652456063320" duration="209000" />
+      <workItem from="1652631352681" duration="839000" />
+      <workItem from="1654834193077" duration="123000" />
+      <workItem from="1654872639531" duration="63000" />
+      <workItem from="1654940964559" duration="694000" />
+      <workItem from="1654943572126" duration="17000" />
+      <workItem from="1655392452323" duration="4000" />
+      <workItem from="1655393200630" duration="660000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+</project>

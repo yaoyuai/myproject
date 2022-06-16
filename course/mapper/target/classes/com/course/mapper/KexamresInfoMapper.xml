@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.course.mapper.KexamresInfoMapper">
+
+
+    <insert id="addKexamResInfo" parameterType="KexamresInfoQo">
+        insert into kexamres_info values(null,#{examId},#{studentId}
+        ,null,now(),null,#{kexamresScore})
+    </insert>
+
+    <select id="selectHasKexamInfo" parameterType="KexamresInfoQo" resultType="KexamresInfo">
+        select * from kexamres_info where exam_id=#{examId} and student_id=#{studentId}
+    </select>
+
+
+    <select id="countZuoDaNum" parameterType="KexamresInfoQo" resultType="int">
+		select count(*)
+        from kexamres_info a left join zexamres_info b on a.exam_id=b.exam_id
+        where a.exam_id=#{examId}
+        group by a.student_id limit 1
+    </select>
+
+    <select id="sumAllScore" parameterType="KexamresInfoQo" resultType="Integer">
+        select count(*)
+        from kexamres_info a inner join zexamres_info b on a.student_id=b.student_id
+        where a.exam_id=#{examId} and  (a.kexamres_score+b.zexamres_score)&gt;=#{examSum}*0.9
+        UNION all
+        select count(*)
+        from kexamres_info a inner join zexamres_info b on a.student_id=b.student_id
+        where a.exam_id=#{examId} and  (a.kexamres_score+b.zexamres_score)&gt;=#{examSum}*0.8 and (a.kexamres_score+b.zexamres_score)&lt;#{examSum}*0.9
+        UNION all
+        select count(*)
+        from kexamres_info a inner join zexamres_info b on a.student_id=b.student_id
+        where a.exam_id=#{examId} and  (a.kexamres_score+b.zexamres_score)&gt;=#{examSum}*0.6 and (a.kexamres_score+b.zexamres_score)&lt;#{examSum}*0.8
+        UNION all
+        select count(*)
+        from kexamres_info a inner join zexamres_info b on a.student_id=b.student_id
+        where a.exam_id=#{examId} and  (a.kexamres_score+b.zexamres_score)&lt;#{examSum}*0.6
+    </select>
+
+    <select id="sumOneExamScore" parameterType="KexamresInfoQo" resultType="Integer">
+        SELECT a.kexamres_score+b.zexamres_score
+        from kexamres_info a left join zexamres_info b on a.exam_id=b.exam_id
+        where a.exam_id=#{examId} limit 1
+    </select>
+
+
+</mapper>

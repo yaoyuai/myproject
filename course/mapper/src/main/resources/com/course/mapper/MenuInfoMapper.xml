@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.course.mapper.MenuInfoMapper">
+
+    <select id="selectAllMeunByRoleId" resultType="MenuInfoVo">
+        select a.*,b.* from menu_info a left join role_menu_rel b on a.menu_id=b.menu_id
+        where b.role_id=#{roleId}
+    </select>
+
+</mapper>

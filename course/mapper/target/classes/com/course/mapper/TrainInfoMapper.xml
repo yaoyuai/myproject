@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.course.mapper.TrainInfoMapper">
+    <select id="showAllTrain" resultType="TrainInfoVo" parameterType="TrainInfoQo">
+        select a.*,b.*,c.*
+        from train_info a left join course_info b on a.course_id=b.course_id
+        left join state_info c on a.state_id=c.state_id
+        <where>
+            and a.teacher_id=#{teacherId}
+            <include refid="condition"></include>
+        </where>
+        limit #{nowPage},#{divideNum}
+    </select>
+
+
+    <select id="showAllTrainCount" resultType="int" parameterType="TrainInfoQo">
+        select count(*)
+        from train_info a left join course_info b on a.course_id=b.course_id
+        left join state_info c on a.state_id=c.state_id
+        <where>
+            and a.teacher_id=#{teacherId}
+            <include refid="condition"></include>
+        </where>
+    </select>
+
+    <update id="updateTrain" parameterType="TrainInfoQo">
+         update train_info set train_name=#{trainName},course_id=#{courseId} where train_id=#{trainId}
+    </update>
+
+    <delete id="deleteTrain" parameterType="TrainInfoQo">
+        delete from train_info where train_id=#{trainId}
+    </delete>
+
+
+    <insert id="addTrain" parameterType="TrainInfoQo">
+         insert into train_info values(null,#{trainName},#{teacherId},9,now(),null,#{courseId})
+    </insert>
+
+
+    <select id="selectHasTrain" resultType="TrainInfo">
+        select * from train_info where train_name=#{trainName} and course_id=#{courseId}
+    </select>
+
+    <select id="selectAllTrain" resultType="TrainInfoVo">
+        select * from train_info where teacher_id=#{teacherId}
+    </select>
+
+
+    <select id="selectAllTrainByCourseId" resultType="TrainInfoVo" parameterType="TrainInfoQo">
+        select a.*,b.* from train_info a left join teacher_info b on a.teacher_id=b.teacher_id
+        where course_id=#{courseId}
+        limit #{nowPage},#{divideNum}
+    </select>
+
+
+    <select id="selectAllTrainByCourseIdCount" resultType="int" parameterType="TrainInfoQo">
+        select count(*) from train_info a left join teacher_info b on a.teacher_id=b.teacher_id
+        where course_id=#{courseId}
+    </select>
+
+
+
+
+
+
+    <sql id="condition">
+        <if test="trainName!=null">
+            and a.train_name like concat('%',#{trainName},'%')
+        </if>
+
+        <if test="courseName!=null">
+            and b.courseName like concat('%',#{courseName},'%')
+        </if>
+
+        <if test="stateId!=null">
+            and a.state_id=#{stateId}
+        </if>
+    </sql>
+
+</mapper>

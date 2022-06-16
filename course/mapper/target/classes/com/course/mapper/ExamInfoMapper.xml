@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.course.mapper.ExamInfoMapper">
+
+    <select id="showAllExam" resultType="ExamInfoVo" parameterType="ExamInfoQo">
+        select a.*,b.*,c.*
+        from exam_info a left join course_info b on a.course_id=b.course_id
+        left join state_info c on a.state_id=c.state_id
+        <where>
+            and a.teacher_id=#{teacherId}
+            <include refid="condition"></include>
+        </where>
+        limit #{nowPage},#{divideNum}
+    </select>
+
+    <select id="showAllExamCount" resultType="int" parameterType="ExamInfoQo">
+        select count(*)
+        from exam_info a left join course_info b on a.course_id=b.course_id
+        left join state_info c on a.state_id=c.state_id
+        <where>
+            and a.teacher_id=#{teacherId}
+            <include refid="condition"></include>
+        </where>
+    </select>
+
+
+    <insert id="addExam" parameterType="ExamInfoQo">
+        insert into exam_info values(null,#{examName},#{teacherId},9,now(),null,#{courseId})
+    </insert>
+
+    <update id="updateExam" parameterType="ExamInfoQo">
+        update exam_info set exam_name=#{examName},course_id=#{courseId} where exam_id=#{examId}
+    </update>
+
+    <delete id="deleteExam" parameterType="ExamInfoQo">
+        delete from exam_info where exam_id=#{examId}
+    </delete>
+
+    <select id="selectHasExam" resultType="ExamInfo">
+        select * from exam_info where exam_name=#{examName} and course_id=#{courseId}
+    </select>
+
+
+    <select id="selectAllExam" resultType="ExamInfoVo">
+        select * from exam_info where teacher_id=#{teacherId} and state_id=9
+    </select>
+
+    <select id="selectAllExamByCourseId" parameterType="ExamInfoQo" resultType="ExamInfoVo">
+        SELECT a.*,IF(a.exam_id=b.exam_id,IF(b.student_id=#{studentId},'已考试','未考试'),'未考试') as 'exam_state'
+        ,c.*
+        FROM `exam_info` a left join kexamres_info b on a.exam_id=b.exam_id
+        left join teacher_info c on a.teacher_id=c.teacher_id
+        where a.course_id=#{courseId} and b.student_id=#{studentId}
+        GROUP BY a.exam_id
+        limit #{nowPage},#{divideNum}
+    </select>
+
+    <select id="selectAllExamByCourseIdCount" parameterType="ExamInfoQo" resultType="int">
+        SELECT count(*) from exam_info a left join teacher_info b on a.teacher_id=b.teacher_id
+        where course_id=#{courseId}
+    </select>
+
+    <select id="showAllExamByTeacherId" parameterType="ExamInfoQo" resultType="ExamInfoVo">
+        select * from exam_info where teacher_id=#{teacherId}
+    </select>
+
+
+    <select id="showAllExamByCourseId" parameterType="ExamInfoQo" resultType="ExamInfoVo">
+        select * from exam_info where course_id=#{courseId} and state_id=10
+    </select>
+
+    <update id="updateExamStateFabu" parameterType="ExamInfoQo">
+        update exam_info set state_id=10 where exam_id=#{examId}
+    </update>
+
+
+
+
+    <sql id="condition">
+        <if test="examName!=null">
+            and a.exam_name like concat('%',#{examName},'%')
+        </if>
+        <if test="courseName!=null">
+            and b.course_name like concat('%',#{courseName},'%')
+        </if>
+        <if test="stateId!=null">
+            and a.state_id=#{stateId}
+        </if>
+    </sql>
+
+</mapper>

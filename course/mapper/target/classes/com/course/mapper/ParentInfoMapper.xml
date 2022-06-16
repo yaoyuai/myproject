@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.course.mapper.ParentInfoMapper">
+
+
+    <select id="judgeLogin" resultType="ParentInfo" parameterType="ParentInfoQo">
+        select * from parent_info where parent_name=#{parentName} and parent_pwd=#{parentPwd}
+        and state_id=1
+    </select>
+
+
+    <insert id="adminAddParent" parameterType="ParentInfoQo">
+        insert into parent_info values(
+            null,#{parentName},#{parentNick},'123456',1,now(),null,3
+        )
+    </insert>
+
+
+    <update id="adminUpdateParent" parameterType="ParentInfoQo">
+        update parent_info set parent_nick=#{parentNick}
+        where parent_id=#{parentId}
+    </update>
+
+
+    <update id="adminLogOutParent" parameterType="parentInfoQo">
+        update parent_info set state_id=3 where parent_id=#{parentId}
+    </update>
+
+
+    <insert id="userAddParent" parameterType="ParentInfoQo">
+         insert into parent_info values(
+            null,#{parentName},#{parentNick},#{parentPwd},1,now(),null,3
+        )
+    </insert>
+
+
+    <select id="judgeRegistHasName" resultType="ParentInfo">
+        select * from parent_info where parent_name=#{parentName}
+    </select>
+
+
+
+    <select id="showAllParent" parameterType="ParentInfoQo" resultType="ParentInfoVo">
+         select a.*,b.*
+         from parent_info a left join state_info b on a.state_id=b.state_id
+         <where>
+             <include refid="condition"></include>
+         </where>
+        limit #{nowPage},#{divideNum}
+    </select>
+
+
+    <select id="showAllParentCount" parameterType="ParentInfoQo" resultType="int">
+        select count(*)
+        from parent_info a left join state_info b on a.state_id=b.state_id
+        <where>
+            <include refid="condition"></include>
+        </where>
+    </select>
+
+    <update id="resetPwd" >
+        update parent_info set parent_pwd='123456' where parent_id=#{parentId}
+    </update>
+
+
+    <update id="updatePwd" parameterType="ParentInfoQo">
+        update parent_info set parent_pwd=#{parentPwd} where parent_id=#{parentId}
+    </update>
+
+
+
+
+
+
+    <sql id="condition">
+        <if test="parentName!=null">
+            and a.parent_name like concat('%',#{parentName},'%')
+        </if>
+        <if test="parentNick!=null">
+            and a.parent_nick like concat('%',#{parentNick},'%')
+        </if>
+        <if test="stateId!=null">
+            and a.state_id=#{stateId}
+        </if>
+
+
+    </sql>
+
+
+
+
+
+
+
+
+
+
+</mapper>

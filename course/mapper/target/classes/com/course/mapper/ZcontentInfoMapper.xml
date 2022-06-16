@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.course.mapper.ZcontentInfoMapper">
+
+
+    <insert id="addZcontentInfo" parameterType="ZcontentInfoQo">
+        insert into zcontent_info values(null,#{examId},#{studentId},#{zcontentAnswer}
+        ,null,now(),null,#{exerId})
+    </insert>
+
+
+    <select id="showAllZcontentByStudentId" parameterType="ZcontentInfoQo" resultType="ZcontentInfoVo">
+        select a.*,b.*,c.*,d.*
+        from zcontent_info a left join student_info b on a.student_id=b.student_id
+        left join state_info c on a.state_id=c.state_id
+        left join exam_info d on a.exam_id=d.exam_id
+        <where>
+            <include refid="condition"></include>
+        </where>
+        group by a.student_id
+        limit #{nowPage},#{divideNum}
+    </select>
+
+    <select id="showAllZcontentByStudentIdCount" parameterType="ZcontentInfoQo" resultType="Integer">
+        select count(DISTINCT a.student_id)
+        from zcontent_info a left join student_info b on a.student_id=b.student_id
+        left join state_info c on a.state_id=c.state_id
+        left join exam_info d on a.exam_id=d.exam_id
+        <where>
+            <include refid="condition"></include>
+        </where>
+    </select>
+
+    <select id="showZcontentByStudentIdAndExamId" resultType="ZcontentInfoVo" parameterType="ZcontentInfoQo">
+
+        select a.*,b.*,c.*
+        from zcontent_info a left join student_info b on a.student_id=b.student_id
+        left join exer_info c on a.exer_id=c.exer_id
+        where a.student_id=#{studentId} and a.exam_id=#{examId}
+
+
+    </select>
+
+    <update id="updateZcontentState" parameterType="ZcontentInfoQo">
+        update zcontent_info set state_id=18 where student_id=#{studentId} and exam_id=#{examId}
+    </update>
+
+
+    <select id="judgeZhuguan" parameterType="ZcontentInfoQo" resultType="int">
+        select count(*) from zcontent_info where exam_id=#{examId}
+    </select>
+
+
+    <select id="judgeStudentHasExam" parameterType="ZcontentInfoQo" resultType="int">
+        SELECT count(*)
+        from kexamres_info a left join zcontent_info b on a.student_id=b.student_id
+        where a.exam_id=#{examId} and a.student_id=#{studentId}
+    </select>
+
+
+
+
+
+    
+    
+    
+    <sql id="condition">
+        <if test="examId!=null">
+            and a.exam_id=#{examId}
+        </if>
+    </sql>
+
+
+
+
+
+</mapper>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.course.mapper.TeacherInfoMapper">
+
+    <select id="judgeLogin" parameterType="TeacherInfoQo" resultType="TeacherInfo">
+        select * from teacher_info where teacher_name=#{teacherName} and teacher_pwd=#{teacherPwd}
+        and state_id=1
+    </select>
+
+    <insert id="userAddTeacher" parameterType="TeacherInfoQo">
+        insert into teacher_info values(
+            null,#{teacherName},#{teacherNick},#{teacherPwd},1,now(),null,2)
+    </insert>
+
+
+    <select id="judgeHasName" resultType="TeacherInfo">
+        select * from teacher_info where teacher_name=#{teacherName}
+    </select>
+
+
+
+
+
+
+    <insert id="adminAddTeacher" parameterType="TeacherInfoQo">
+        insert into teacher_info values(
+            null,#{teacherName},#{teacherNick},'123456',1,now(),null,2)
+    </insert>
+
+
+    <update id="adminUpdateTeacher" parameterType="TeacherInfoQo">
+        update teacher_info set teacher_nick=#{teacherNick} where teacher_id=#{teacherId}
+    </update>
+
+    <update id="adminLogOutTeacher" parameterType="TeacherInfoQo">
+        update teacher_info set state_id=3 where teacher_id=#{teacherId}
+    </update>
+
+
+    <select id="showAllTeacher" parameterType="TeacherInfoQo" resultType="TeacherInfoVo">
+
+        select a.*,b.*
+        from teacher_info a left join state_info b on a.state_id=b.state_id
+        <where>
+            <include refid="condition"></include>
+        </where>
+        limit #{nowPage},#{divideNum}
+    </select>
+
+
+    <select id="showAllTeacherCount" parameterType="TeacherInfoQo" resultType="int">
+
+        select count(*)
+        from teacher_info a left join state_info b on a.state_id=b.state_id
+        <where>
+            <include refid="condition"></include>
+        </where>
+    </select>
+
+    <update id="resetPwd">
+        update teacher_info set teacher_pwd='123456' where teacher_id=#{teacherId}
+    </update>
+
+    <update id="updatePwd" parameterType="TeacherInfoQo">
+        update teacher_info set teacher_pwd=#{teacherPwd} where teacher_id=#{teacherId}
+    </update>
+
+
+
+
+    <sql id="condition">
+        <if test="teacherName!=null">
+            and a.teacher_name like concat('%',#{teacherName},'%')
+        </if>
+        <if test="teacherNick!=null">
+            and a.teacher_nick like concat('%',#{teacherNick},'%')
+        </if>
+        <if test="stateId!=null">
+            and a.state_id=#{stateId}
+        </if>
+    </sql>
+
+
+
+
+
+
+</mapper>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.course.mapper.ExerInfoMapper">
+
+    <insert id="addExer" parameterType="ExerInfoQo">
+        insert into exer_info values(null,#{exerContent},null,now(),null,#{typeId},#{trainId},#{examId},
+        #{exerAnswer},#{exerAnaly},#{exerValue}
+        )
+    </insert>
+
+
+    <select id="selectMaxExerId" resultType="int">
+        select max(exer_id) from exer_info
+    </select>
+
+    <select id="showAllExerByExamId" parameterType="ExerInfoQo" resultType="ExerInfoVo">
+        select a.*,b.*
+        from exer_info a left join exam_info b on a.exam_id=b.exam_id
+        where a.exam_id=#{examId}
+    </select>
+
+    <select id="selectOneExamHasTianKong" parameterType="ExerInfoQo" resultType="ExerInfoVo">
+        select * from exer_info where exam_id=#{examId} and type_id=4
+    </select>
+
+    <select id="showAllExerByTrainId" parameterType="ExerInfoQo" resultType="ExerInfoVo">
+        select a.*,b.*
+        from exer_info a left join train_info b on a.train_id=b.train_id
+        where a.train_id=#{trainId}
+    </select>
+
+
+    <select id="sumExamScore" parameterType="ExerInfoQo" resultType="Integer">
+        select sum(exer_value) from exer_info where exam_id=#{examId}
+    </select>
+
+
+    <update id="updateAnswer" parameterType="ExerInfoQo">
+        update exer_info set exer_answer=#{exerAnswer} where exer_id=#{exerId}
+    </update>
+
+    <select id="showExamHasExer" parameterType="ExerInfoQo" resultType="int">
+        select count(*) from exer_info where exam_id=#{examId}
+    </select>
+
+
+
+
+</mapper>
