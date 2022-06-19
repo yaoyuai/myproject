@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+    <user id="1">
+        <name>张三</name>
+    </user>
+    <user id="2">
+        <name>李四</name>
+    </user>
+    <user id="3">
+        <name>王五</name>
+    </user>
+    <user id="4">
+        <name>谢六</name>
+    </user>
+    <user id="5">
+        <name>赵七</name>
+    </user>
+</users>
